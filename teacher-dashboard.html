@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Teacher Dashboard - Smart Education</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+</head>
+<body data-page="teacher-dashboard">
+
+    <div class="dashboard-layout">
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <div class="sidebar-user">
+                    <div class="sidebar-avatar">👨‍🏫</div>
+                    <div class="sidebar-user-info">
+                        <h4 id="sidebar-name">Teacher</h4>
+                        <span id="sidebar-role">teacher</span>
+                    </div>
+                </div>
+            </div>
+            <ul class="sidebar-menu">
+                <li><a href="#" class="active"><span class="sidebar-icon">📊</span> Dashboard</a></li>
+                <li><a href="#"><span class="sidebar-icon">📚</span> My Courses</a></li>
+                <li><a href="#"><span class="sidebar-icon">➕</span> Create Course</a></li>
+                <li><a href="#"><span class="sidebar-icon">👥</span> Students</a></li>
+                <li><a href="#"><span class="sidebar-icon">📝</span> Assignments</a></li>
+                <li><a href="#"><span class="sidebar-icon">📋</span> Quizzes</a></li>
+                <li><a href="#"><span class="sidebar-icon">💬</span> Discussions</a></li>
+                <li><a href="#"><span class="sidebar-icon">📈</span> Analytics</a></li>
+                <li><a href="#"><span class="sidebar-icon">⚙️</span> Settings</a></li>
+                <li><a href="#" onclick="logout()"><span class="sidebar-icon">🚪</span> Logout</a></li>
+            </ul>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="dashboard-content">
+            <div class="dashboard-header">
+                <div>
+                    <h1>Teacher Dashboard</h1>
+                    <p style="color: var(--gray-500);">Manage your courses and track student progress.</p>
+                </div>
+                <a href="#" class="btn btn-primary">+ Create Course</a>
+            </div>
+
+            <!-- Stats Grid -->
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-icon primary">📚</div>
+                    <div class="stat-info">
+                        <h3 id="stat-courses">0</h3>
+                        <p>Total Courses</p>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon success">👥</div>
+                    <div class="stat-info">
+                        <h3 id="stat-students">0</h3>
+                        <p>Total Students</p>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon info">📖</div>
+                    <div class="stat-info">
+                        <h3 id="stat-lessons">0</h3>
+                        <p>Total Lessons</p>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon warning">⭐</div>
+                    <div class="stat-info">
+                        <h3 id="stat-rating">0</h3>
+                        <p>Avg. Rating</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- My Courses -->
+            <div class="table-container mb-4">
+                <div class="table-header">
+                    <h3 class="table-title">My Courses</h3>
+                </div>
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th>Course</th>
+                            <th>Category</th>
+                            <th>Students</th>
+                            <th>Progress</th>
+                            <th>Status</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody id="my-courses-table">
+                        <tr><td colspan="6" class="text-center">Loading...</td></tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- Recent Enrollments -->
+            <div class="table-container mb-4">
+                <div class="table-header">
+                    <h3 class="table-title">Recent Enrollments</h3>
+                </div>
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th>Student</th>
+                            <th>Course</th>
+                            <th>Enrolled Date</th>
+                            <th>Status</th>
+                        </tr>
+                    </thead>
+                    <tbody id="recent-enrollments-table">
+                        <tr><td colspan="4" class="text-center">Loading...</td></tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- Pending Submissions -->
+            <div class="table-container">
+                <div class="table-header">
+                    <h3 class="table-title">Pending Submissions</h3>
+                </div>
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th>Student</th>
+                            <th>Assignment</th>
+                            <th>Course</th>
+                            <th>Submitted</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody id="pending-submissions-table">
+                        <tr><td colspan="5" class="text-center">Loading...</td></tr>
+                    </tbody>
+                </table>
+            </div>
+        </main>
+    </div>
+
+    <script src="js/main.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Set user info in sidebar
+            const user = localStorage.getItem('user');
+            if (user) {
+                const userData = JSON.parse(user);
+                document.getElementById('sidebar-name').textContent = userData.name;
+                document.getElementById('sidebar-role').textContent = userData.role;
+            }
+
+            // Render dashboard
+            renderTeacherDashboard();
+        });
+    </script>
+</body>
+</html>
